@@ -148,7 +148,6 @@ class RectangularRoom(object):
         return 0 <= tileX < self.width and 0 <= tileY < self.height
         
 
-
 class Robot(object):
     """
     Represents a robot cleaning a particular room.
@@ -170,7 +169,12 @@ class Robot(object):
         """
         self.room = room
         self.speed = speed
-        
+        self.DIRECTION = random.randint(0, 359)
+        x = random.randrange(0, room.width)
+        y = random.randrange(0, room.height)
+        self.POSITION = Position(x, y)
+        room.cleanTileAtPosition(self.POSITION)
+        pass
 
     def getRobotPosition(self):
         """
@@ -178,7 +182,7 @@ class Robot(object):
 
         returns: a Position object giving the robot's position.
         """
-        raise NotImplementedError
+        return self.POSITION
     
     def getRobotDirection(self):
         """
@@ -187,7 +191,7 @@ class Robot(object):
         returns: an integer d giving the direction of the robot as an angle in
         degrees, 0 <= d < 360.
         """
-        raise NotImplementedError
+        return self.DIRECTION
 
     def setRobotPosition(self, position):
         """
@@ -195,7 +199,8 @@ class Robot(object):
 
         position: a Position object.
         """
-        raise NotImplementedError
+        self.POSITION = position
+        pass
 
     def setRobotDirection(self, direction):
         """
@@ -203,7 +208,8 @@ class Robot(object):
 
         direction: integer representing an angle in degrees
         """
-        raise NotImplementedError
+        self.DIRECTION = direction
+        pass
 
     def updatePositionAndClean(self):
         """
