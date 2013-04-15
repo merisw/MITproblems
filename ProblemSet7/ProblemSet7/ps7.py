@@ -301,7 +301,14 @@ class RandomWalkRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        raise NotImplementedError
+        newPos = self.POSITION.getNewPosition(self.DIRECTION, self.speed)
+        while not self.room.isPositionInRoom(newPos):
+            self.DIRECTION = random.randint(0, 359)
+            newPos = self.POSITION.getNewPosition(self.DIRECTION, self.speed)
+        self.room.cleanTileAtPosition(newPos)
+        self.POSITION = newPos
+        self.DIRECTION = random.randint(0, 359)
+        pass
 
 
 def showPlot1(title, x_label, y_label):
@@ -351,12 +358,11 @@ def showPlot2(title, x_label, y_label):
 # 1) Write a function call to showPlot1 that generates an appropriately-labeled
 #     plot.
 #
-#       (... your call here ...)
-#
+
+showPlot1('Time it takes 1-10 robots to clean', 'Number of robots', 'time-steps')
 
 #
 # 2) Write a function call to showPlot2 that generates an appropriately-labeled
 #     plot.
 #
-#       (... your call here ...)
-#
+showPlot2('Time it takes robots to clean different room shapes', 'aspect ratio', 'time-step')
